@@ -1,0 +1,56 @@
+// CONFIGURATION: Manually set the starting cell for each month.
+// Update "Sheet1" to your actual sheet name if different.
+const SHEET_NAME = "Sheet1";
+const MONTH_START_CELLS = {
+  9: "C5",   // January starts at B2
+  10: "C37",  // February starts at B35 (adjust for your vertical gaps)
+  11: "C70",  // March
+  12: "C102", // April
+  1: "C135", // May
+  2: "C168", // June
+  3: "C198", // July
+  4: "C231", // August
+  5: "C263", // September
+  6: "C296", // October
+  7: "C328", // November
+  8: "C361"  // December
+};
+
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    const addedAmount = parseFloat(data.amount);
+    
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+    
+    // Get current date
+    const now = new Date();
+    const currentMonth = parseInt(Utilities.formatDate(now, "Asia/Tokyo", "M"), 10);
+    const currentDay = parseInt(Utilities.formatDate(now, "Asia/Tokyo", "d"), 10);
+    
+    // Find where the current month block starts
+    const startCellRef = MONTH_START_CELLS[currentMonth];
+    const startRange = sheet.getRange(startCellRef);
+    
+    // Calculate exact row for TODAY. 
+    const targetRow = startRange.getRow() + currentDay - 1;
+    const targetColumn = startRange.getColumn();
+    
+    const targetCell = sheet.getRange(targetRow, targetColumn);
+    let currentValue = targetCell.getValue();
+    
+    // If there is already a number there, add to it. Otherwise, set the new amount.
+    if (!isNaN(parseFloat(currentValue)) && currentValue !== "") {
+      targetCell.setValue(parseFloat(currentValue) + addedAmount);
+    } else {
+      targetCell.setValue(addedAmount);
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify({status: "Success"}))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({status: "Error", message: error.message}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
