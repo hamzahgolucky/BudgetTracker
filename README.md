@@ -1,0 +1,1 @@
+If anyone wants to use this for themselves, simply copy and paste the apps script in your google sheets, deploy it and copy the link. Then make a new wear OS project on android studio, download the kotlin file above and have the MainActivity.kt point to it, and it should all just work.
