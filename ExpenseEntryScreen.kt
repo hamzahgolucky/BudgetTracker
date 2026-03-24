@@ -41,7 +41,7 @@ val SageGreen = Color(0xFF9DC183)
 val DarkSage = Color(0xFF6E8B57)
 
 // Replace with the URL you copied from Google Apps Script
-const val SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWndzPPV8ljrSqB6XHiY8aW9tPMqvrXdIsrC1SjgB89Y8AIxKAhgATZNfruK3pTWYp/exec"
+const val SCRIPT_URL = "__________________________"
 
 @Composable
 fun ExpenseEntryScreen() {
