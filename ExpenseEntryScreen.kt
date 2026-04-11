@@ -40,7 +40,7 @@ import androidx.wear.compose.material3.LocalTextStyle
 val SageGreen = Color(0xFF9DC183)
 val DarkSage = Color(0xFF6E8B57)
 
-// Replace with the URL you copied from Google Apps Script
+// Replace with the URL you can copy from Google Apps Script
 const val SCRIPT_URL = "__________________________"
 
 @Composable
@@ -72,7 +72,6 @@ fun ExpenseEntryScreen() {
         ) {
             Spacer(modifier = Modifier.height(24.dp)) // Space for the top curve of the watch
 
-            // 1. Big, Bold Total Expense Text
             Text(
                 text = "¥${if (amount.isEmpty()) "0" else amount}",
                 fontSize = 36.sp,
@@ -81,12 +80,11 @@ fun ExpenseEntryScreen() {
                 modifier = Modifier.padding(bottom = 6.dp)
             )
 
-            // 2. The Big, Squeezed Add Buttons (+100, +10, +1)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f), // Takes up the most available vertical space
-                horizontalArrangement = Arrangement.spacedBy(2.dp) // Squeezed tight
+                    .weight(1f),
+                horizontalArrangement = Arrangement.spacedBy(2.dp) 
             ) {
                 val btnShape = RoundedCornerShape(10.dp)
                 val btnModifier = Modifier.weight(1f).fillMaxHeight()
@@ -105,17 +103,16 @@ fun ExpenseEntryScreen() {
 
             Spacer(modifier = Modifier.height(2.dp))
 
-            // 3. The Smaller, Squeezed Bottom Buttons (Clear & Log)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp) // Locked smaller height
-                    .padding(horizontal = 16.dp), // More horizontal padding for the bottom curve
+                    .height(48.dp)
+                    .padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 Button(
                     onClick = { amount = "" },
-                    modifier = Modifier.weight(0.8f).fillMaxHeight(), // Clear is slightly narrower
+                    modifier = Modifier.weight(0.8f).fillMaxHeight(),
                     shape = RoundedCornerShape(8.dp),
                     colors = ButtonDefaults.buttonColors(Color.DarkGray, contentColor = Color.White)
                 ) {
@@ -133,7 +130,7 @@ fun ExpenseEntryScreen() {
                             }
                         }
                     },
-                    modifier = Modifier.weight(1.2f).fillMaxHeight(), // Log is wider
+                    modifier = Modifier.weight(1.2f).fillMaxHeight(),
                     shape = RoundedCornerShape(8.dp),
                     colors = ButtonDefaults.buttonColors(DarkSage, contentColor = Color.White)
                 ) {
@@ -144,7 +141,7 @@ fun ExpenseEntryScreen() {
             Spacer(modifier = Modifier.height(0.dp)) // Space for the bottom curve
         }
 
-        // 4. The Pop-Out Status Card Overlay
+        // The Pop-Out Status Card Overlay
         AnimatedVisibility(
             visible = statusMessage != null,
             enter = slideInVertically(initialOffsetY = { it / 2 }) + fadeIn(),
